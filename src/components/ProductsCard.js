@@ -19,6 +19,18 @@ const ProductsCard = () => {
     e.preventDefault();
     setCart([...cart, product]);
     setTotal(total + parseInt(product.price));
+    fetch("http://localhost:5000/cartProducts", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
     axios
       .get("http://localhost:5000/discount")
       .then(function (response) {

@@ -1,17 +1,27 @@
 import axios from "axios";
 import { Button, Table } from "flowbite-react";
 import React, { useContext, useState } from "react";
+import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartProvider";
 
 const Cart = () => {
   const { setTotal, total, cart, setCart, coupon, setCoupon } =
     useContext(CartContext);
+
   const navigate = useNavigate();
+
   const [sendDataObj, setSendDataObj] = useState({
     Total: total,
     Cart: cart,
   });
+
+  const { data } = useQuery("cartProducts", () =>
+    axios
+      .get("http://localhost:5000/cartProducts")
+      .then((res) => res.data)
+      .then((data) => setCart(data))
+  );
 
   const addCoupon = (e) => {
     e.preventDefault();
@@ -39,7 +49,7 @@ const Cart = () => {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:5000/cartProducts", sendDataObj)
+        .post("http://localhost:5000/cartAllData", sendDataObj)
         .then(function (response) {
           console.log(response);
         })
