@@ -18,7 +18,7 @@ const Cart = () => {
 
   const { data } = useQuery("cartProducts", () =>
     axios
-      .get("http://localhost:5000/cartProducts")
+      .get("https://ecommerce-server-ten.vercel.app/cartProducts")
       .then((res) => res.data)
       .then((data) => setCart(data))
   );
@@ -31,7 +31,9 @@ const Cart = () => {
     setSendDataObj({ ...sendDataObj, coupon: coupon });
     try {
       axios
-        .post("http://localhost:5000/coupons", { coupon: coupon })
+        .post("https://ecommerce-server-ten.vercel.app/coupons", {
+          coupon: coupon,
+        })
         .then(function (response) {
           console.log(response);
         })
@@ -49,7 +51,10 @@ const Cart = () => {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:5000/cartAllData", sendDataObj)
+        .post(
+          "https://ecommerce-server-ten.vercel.app/cartAllData",
+          sendDataObj
+        )
         .then(function (response) {
           console.log(response);
         })
