@@ -8,9 +8,7 @@ const ProductsCard = () => {
   const { setCart, setTotal, total, setCoupon, cart } = useContext(CartContext);
 
   const { isLoading, error, data, isFetching } = useQuery("products", () =>
-    axios
-      .get("https://ecommerce-server-ten.vercel.app/products")
-      .then((res) => res.data)
+    axios.get("http://localhost:5000/products").then((res) => res.data)
   );
 
   if (isLoading) return "Loading...";
@@ -21,7 +19,7 @@ const ProductsCard = () => {
     e.preventDefault();
     setCart([...cart, product]);
     setTotal(total + parseInt(product.price));
-    fetch("https://ecommerce-server-ten.vercel.app/cartProducts", {
+    fetch("http://localhost:5000/cartProducts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -34,7 +32,7 @@ const ProductsCard = () => {
       })
       .catch((err) => console.error(err));
     axios
-      .get("https://ecommerce-server-ten.vercel.app/discount")
+      .get("http://localhost:5000/discount")
       .then(function (response) {
         console.log(response.data);
         setCoupon(response.data);
