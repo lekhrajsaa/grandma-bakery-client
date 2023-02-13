@@ -67,25 +67,19 @@ const CartPage = () => {
             sendDataObj={sendDataObj}
             setSendDataObj={setSendDataObj}
           ></Coupon>
-          <div className="mt-3 flex justify-between items-center mx-3 my-9">
-            <h1 className="text-xl font-semibold">Total: ${total}</h1>
+          <div className="mt-3 flex justify-between items-center  mx-3 my-9">
+            <div>
+              <h1 className="text-xl font-semibold">Total: ${total}</h1>
+            </div>
             <Button color="warning" onClick={openModal}>
               Checkout
             </Button>
-            {/* <Button
-              color="warning"
-              onClick={(e) => {
-                sendData(e);
-              }}
-            >
-              Checkout
-            </Button> */}
-            <CheckoutModal
-              modalIsOpen={modalIsOpen}
-              setIsOpen={setIsOpen}
-              sendDataObj={sendDataObj}
-            ></CheckoutModal>
           </div>
+          <CheckoutModal
+            modalIsOpen={modalIsOpen}
+            setIsOpen={setIsOpen}
+            sendDataObj={sendDataObj}
+          ></CheckoutModal>
         </div>
       )}
     </div>

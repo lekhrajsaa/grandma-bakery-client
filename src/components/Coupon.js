@@ -4,13 +4,15 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/CartProvider";
 
 const Coupon = ({ sendDataObj, setSendDataObj }) => {
-  const { setTotal, total, coupon, setCoupon } = useContext(CartContext);
+  const { setTotal, total, coupon, setCoupon, setDiscount, discount } =
+    useContext(CartContext);
 
   const addCoupon = (e) => {
     e.preventDefault();
     const discount = total * 0.1;
     const newTotal = parseFloat(parseFloat(total - discount).toFixed(2));
     setTotal(newTotal);
+    setDiscount(discount);
     setSendDataObj({ ...sendDataObj, coupon: coupon });
     try {
       axios
@@ -40,6 +42,11 @@ const Coupon = ({ sendDataObj, setSendDataObj }) => {
             {coupon}
           </Button>
         </div>
+      )}
+      {discount > 0 && (
+        <h1 className="text-xl font-semibold">
+          You got ${discount} discount
+        </h1>
       )}
     </div>
   );
