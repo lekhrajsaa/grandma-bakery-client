@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";
 import Error404 from "../components/Error404";
-import ProductsCard from "../components/ProductsCard";
 import Main from "../layout/Main";
+import CartPage from "../pages/CartPage";
+import ProductsPage from "../pages/ProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -12,11 +12,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ProductsCard></ProductsCard>,
+        element: <ProductsPage></ProductsPage>,
       },
       {
         path: "/cart",
-        element: <Cart></Cart>,
+        element: <CartPage></CartPage>,
       },
       {
         path: "/checkout",
