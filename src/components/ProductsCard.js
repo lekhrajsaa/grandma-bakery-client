@@ -8,7 +8,9 @@ const ProductsCard = () => {
   const { setCart, setTotal, total, setCoupon, cart } = useContext(CartContext);
 
   const { isLoading, error, data, isFetching } = useQuery("products", () =>
-    axios.get("http://localhost:5000/products").then((res) => res.data)
+    axios
+      .get("https://grandma-bakery-server.up.railway.app/products")
+      .then((res) => res.data)
   );
 
   if (isLoading) return "Loading...";
@@ -19,7 +21,7 @@ const ProductsCard = () => {
     e.preventDefault();
     setCart([...cart, product]);
     setTotal(total + parseInt(product.price));
-    fetch("http://localhost:5000/cartProducts", {
+    fetch("https://grandma-bakery-server.up.railway.app/cartProducts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -32,7 +34,7 @@ const ProductsCard = () => {
       })
       .catch((err) => console.error(err));
     axios
-      .get("http://localhost:5000/discount")
+      .get("https://grandma-bakery-server.up.railway.app/discount")
       .then(function (response) {
         console.log(response.data);
         setCoupon(response.data);

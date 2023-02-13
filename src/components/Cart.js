@@ -18,7 +18,7 @@ const Cart = () => {
 
   const { data } = useQuery("cartProducts", () =>
     axios
-      .get("http://localhost:5000/cartProducts")
+      .get("https://grandma-bakery-server.up.railway.app/cartProducts")
       .then((res) => res.data)
       .then((data) => setCart(data))
   );
@@ -31,7 +31,7 @@ const Cart = () => {
     setSendDataObj({ ...sendDataObj, coupon: coupon });
     try {
       axios
-        .post("http://localhost:5000/coupons", {
+        .post("https://grandma-bakery-server.up.railway.app/coupons", {
           coupon: coupon,
         })
         .then(function (response) {
@@ -51,7 +51,10 @@ const Cart = () => {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:5000/cartAllData", sendDataObj)
+        .post(
+          "https://grandma-bakery-server.up.railway.app/cartAllData",
+          sendDataObj
+        )
         .then(function (response) {
           console.log(response);
         })
