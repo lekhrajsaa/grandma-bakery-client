@@ -21,6 +21,7 @@ const ProductsCard = () => {
     e.preventDefault();
     setCart([...cart, product]);
     setTotal(total + parseInt(product.price));
+
     fetch("https://grandma-bakery-server.up.railway.app/cartProducts", {
       method: "POST",
       headers: {
@@ -33,6 +34,7 @@ const ProductsCard = () => {
         console.log(data);
       })
       .catch((err) => console.error(err));
+
     axios
       .get("https://grandma-bakery-server.up.railway.app/discount")
       .then(function (response) {
@@ -46,7 +48,7 @@ const ProductsCard = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-3 mx-20 gap-7">
+      <div className="grid md:grid-cols-2 mx-5 lg:grid-cols-3 md:mx-20 gap-7">
         {data.map((product) => (
           <div key={product._id}>
             <div>

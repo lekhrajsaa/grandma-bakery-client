@@ -64,13 +64,21 @@ const Cart = () => {
     } catch (err) {
       console.log(err);
     } finally {
+      axios
+        .get("https://grandma-bakery-server.up.railway.app/clearCartData")
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       setCart([]);
       setTotal(0);
       navigate("/checkout");
     }
   };
   return (
-    <div className="w-3/4 mx-auto">
+    <div className="md:w-3/4 mx-auto">
       {cart.length === 0 ? (
         <div>
           <h1 className="text-3xl font-bold">
@@ -86,8 +94,10 @@ const Cart = () => {
         </div>
       ) : (
         <div>
-          <h1 className="text-4xl font-semibold mb-4">Welcome in your Cart</h1>
-          <Table hoverable={true}>
+          <h1 className="text-2xl md:text-4xl font-semibold mb-4">
+            Welcome in your Cart
+          </h1>
+          <Table hoverable={true} className="my-4 md:my-0">
             <Table.Head>
               <Table.HeadCell>Serial</Table.HeadCell>
               <Table.HeadCell>Product Image</Table.HeadCell>
@@ -121,7 +131,7 @@ const Cart = () => {
             </Table.Body>
           </Table>
           {coupon && (
-            <div className="flex justify-center items-center gap-3 my-3">
+            <div className="flex flex-col md:flex justify-center items-center gap-3 my-3 mx-2 md:mx-0">
               <h1 className="text-xl font-semibold">
                 You got a coupon for 10% discount, click on the coupon code to
                 apply
@@ -131,7 +141,8 @@ const Cart = () => {
               </Button>
             </div>
           )}
-          <div className="mt-3 flex justify-between items-center">
+          <div className="mt-3 flex justify-between items-center mx-3 my-9">
+            <h1 className="text-xl font-semibold">Total: ${total}</h1>
             <Button
               color="warning"
               onClick={(e) => {
@@ -140,7 +151,6 @@ const Cart = () => {
             >
               Checkout
             </Button>
-            <h1 className="text-xl font-semibold">Total: ${total}</h1>
           </div>
         </div>
       )}
