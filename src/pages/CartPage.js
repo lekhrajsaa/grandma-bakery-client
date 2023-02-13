@@ -1,23 +1,27 @@
-import axios from "axios";
 import { Button } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartProvider";
 import CartTable from "../components/CartTable";
 import Coupon from "../components/Coupon";
+import CheckoutModal from "../components/CheckoutModal";
 
 const CartPage = () => {
   //sharing data using context
-  const { setTotal, total, cart, setCart } = useContext(CartContext);
-
-  const navigate = useNavigate();
+  const { total, cart, setCart } = useContext(CartContext);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   //holding the cart data to send
   const [sendDataObj, setSendDataObj] = useState({
     Total: total,
     Cart: cart,
   });
+
+  //checkout modal open
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   //getting cart products from server
   const { refetch } = useQuery({
@@ -30,50 +34,13 @@ const CartPage = () => {
       setCart(data);
     },
   });
-  
+
   // const { refetch } = useQuery("cartProducts", () =>
   //   axios
   //     .get("https://grandma-bakery-server.up.railway.app/cartProducts")
   //     .then((res) => res.data)
   //     .then((data) => setCart(data))
   // );
-
-  //sending checkout data to server
-  const sendData = (e) => {
-    e.preventDefault();
-    try {
-      axios
-        .post(
-          "https://grandma-bakery-server.up.railway.app/cartAllData",
-          sendDataObj
-        )
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      clearCartData();
-    }
-  };
-
-  //clearing cart data
-  const clearCartData = () => {
-    axios
-      .get("https://grandma-bakery-server.up.railway.app/clearCartData")
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    setCart([]);
-    setTotal(0);
-    navigate("/checkout");
-  };
 
   return (
     <div className="md:w-3/4 mx-auto">
@@ -102,14 +69,22 @@ const CartPage = () => {
           ></Coupon>
           <div className="mt-3 flex justify-between items-center mx-3 my-9">
             <h1 className="text-xl font-semibold">Total: ${total}</h1>
-            <Button
+            <Button color="warning" onClick={openModal}>
+              Checkout
+            </Button>
+            {/* <Button
               color="warning"
               onClick={(e) => {
                 sendData(e);
               }}
             >
               Checkout
-            </Button>
+            </Button> */}
+            <CheckoutModal
+              modalIsOpen={modalIsOpen}
+              setIsOpen={setIsOpen}
+              sendDataObj={sendDataObj}
+            ></CheckoutModal>
           </div>
         </div>
       )}

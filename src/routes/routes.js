@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Checkout from "../components/Checkout";
 import Error404 from "../components/Error404";
 import Main from "../layout/Main";
 import CartPage from "../pages/CartPage";
+import CheckoutPage from "../pages/CheckoutPage";
 import ProductsPage from "../pages/ProductsPage";
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <Checkout></Checkout>,
+        element: <CheckoutPage></CheckoutPage>,
       },
       {
         path: "*",
