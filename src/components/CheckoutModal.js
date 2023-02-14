@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Button, Label, TextInput } from "flowbite-react";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import ReactModal from "react-modal";
@@ -33,6 +32,17 @@ const CheckoutModal = ({ modalIsOpen, setIsOpen, sendDataObj }) => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  //submitting the checkout form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    sendData();
   };
 
   //sending checkout data to server
@@ -72,16 +82,6 @@ const CheckoutModal = ({ modalIsOpen, setIsOpen, sendDataObj }) => {
     setTotal(0);
     closeModal();
     navigate("/checkout");
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    sendData();
   };
 
   return (

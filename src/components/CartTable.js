@@ -3,8 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { CartContext } from "../context/CartProvider";
 
 const CartTable = ({ cart }) => {
-  const { setTotal, total, setCart, sendAmount } =
-    useContext(CartContext);
+  const { setTotal, total, setCart, sendAmount } = useContext(CartContext);
   //deleting a product from cart
   const deleteHandler = (e, cartPro) => {
     e.preventDefault();
@@ -21,7 +20,6 @@ const CartTable = ({ cart }) => {
       })
       .catch((err) => console.error(err));
     sendAmount(total - parseFloat(cartPro.price));
-  
   };
 
   useEffect(() => {
@@ -41,6 +39,7 @@ const CartTable = ({ cart }) => {
           <Table.HeadCell>Serial</Table.HeadCell>
           <Table.HeadCell>Product Image</Table.HeadCell>
           <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Quantity</Table.HeadCell>
           <Table.HeadCell>Price</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
         </Table.Head>
@@ -58,6 +57,11 @@ const CartTable = ({ cart }) => {
               </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {cartPro.name}
+              </Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white ">
+                <div className="flex items-center gap-6">
+                  <button className="px-1 rounded-sm">+</button>1<button className="px-1 rounded-sm">-</button>
+                </div>
               </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 ${cartPro.price}
