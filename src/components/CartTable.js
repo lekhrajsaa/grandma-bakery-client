@@ -1,10 +1,10 @@
 import { Button, Table } from "flowbite-react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CartContext } from "../context/CartProvider";
 
-const CartTable = ({ cart, refetch }) => {
-  const { setTotal, total } = useContext(CartContext);
-
+const CartTable = ({ cart }) => {
+  const { setTotal, total, setCart, sendAmount } =
+    useContext(CartContext);
   //deleting a product from cart
   const deleteHandler = (e, cartPro) => {
     e.preventDefault();
@@ -20,9 +20,20 @@ const CartTable = ({ cart, refetch }) => {
         console.log(data);
       })
       .catch((err) => console.error(err));
-    refetch();
-    setTotal(total - parseFloat(cartPro.price));
+    sendAmount(total - parseFloat(cartPro.price));
+  
   };
+
+  useEffect(() => {
+    fetch("https://grandma-bakery-server.up.railway.app/cartProducts")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCart(data);
+      })
+      .catch((err) => console.error(err));
+  }, [cart, total, setTotal, setCart]);
+
   return (
     <div>
       <Table hoverable={true} className="my-4 md:my-0">

@@ -6,7 +6,8 @@ import { CartContext } from "../context/CartProvider";
 
 const ProductsCard = ({ product }) => {
   //sharing data using context
-  const { setCart, setTotal, total, setCoupon, cart } = useContext(CartContext);
+  const { setCart, setTotal, total, setCoupon, cart, sendAmount } =
+    useContext(CartContext);
 
   //adding product data in carts
   const addToCart = (e, product) => {
@@ -27,14 +28,15 @@ const ProductsCard = ({ product }) => {
         console.log(data);
       })
       .catch((err) => console.error(err));
+    sendAmount(total + parseInt(product.price));
+
+    //generating discount coupon for orders 6th order
+    if (cart.length === 5) {
+      getCoupon();
+    }
 
     //toast to notify product added to cart
     toast.success("Successfully added to cart");
-
-    //generating discount coupon for orders more than 5
-    if (cart.length > 5) {
-      getCoupon();
-    }
   };
 
   //function for generating new coupon

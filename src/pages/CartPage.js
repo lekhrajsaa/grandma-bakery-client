@@ -6,10 +6,11 @@ import { CartContext } from "../context/CartProvider";
 import CartTable from "../components/CartTable";
 import Coupon from "../components/Coupon";
 import CheckoutModal from "../components/CheckoutModal";
+import axios from "axios";
 
 const CartPage = () => {
   //sharing data using context
-  const { total, cart, setCart } = useContext(CartContext);
+  const { total, cart, setCart, setTotal } = useContext(CartContext);
   const [modalIsOpen, setIsOpen] = useState(false);
 
   //holding the cart data to send
@@ -34,6 +35,14 @@ const CartPage = () => {
       setCart(data);
     },
   });
+
+  //getting total amount
+  axios
+    .get("https://grandma-bakery-server.up.railway.app/cartAmount")
+    .then((res) => res.data)
+    .then((data) => {
+      setTotal(data.price);
+    });
 
   // const { refetch } = useQuery("cartProducts", () =>
   //   axios

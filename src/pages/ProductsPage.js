@@ -9,7 +9,7 @@ const ProductsPage = () => {
     axios
       .get("https://grandma-bakery-server.up.railway.app/products")
       .then((res) => res.data)
-  );
+  );  
 
   //using loader if data is loading while fetch
   if (isLoading) return "Loading...";

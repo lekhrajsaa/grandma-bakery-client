@@ -10,17 +10,15 @@ const HeadNav = () => {
   return (
     <div className="m-5">
       <Navbar fluid={true} rounded={true}>
-        <Link to='/'>
-          <Navbar.Brand to="/">
-            <img
-              src="https://i.ibb.co/7NGMq6Y/colorful-cupcakes.jpg"
-              className="mr-3 h-6 sm:h-9"
-              alt="Colorful cupcake logo"
-            />
-            <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
-              Grandma's Bakery
-            </span>
-          </Navbar.Brand>
+        <Link to="/" className="flex">
+          <img
+            src="https://i.ibb.co/7NGMq6Y/colorful-cupcakes.jpg"
+            className="mr-3 h-6 sm:h-9"
+            alt="Colorful cupcake logo"
+          />
+          <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
+            Grandma's Bakery
+          </span>
         </Link>
         <Link
           to="/cart"

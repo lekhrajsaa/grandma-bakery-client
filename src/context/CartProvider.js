@@ -8,7 +8,33 @@ const CartProvider = ({ children }) => {
   const [discount, setDiscount] = useState(0);
   const [coupon, setCoupon] = useState("");
 
-  const authInfo = { cart, setCart, total, setTotal, coupon, setCoupon ,discount,setDiscount};
+  //sending total amount
+  const sendAmount = (price) => {
+    fetch("https://grandma-bakery-server.up.railway.app/cartAmount", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ price: price }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const authInfo = {
+    cart,
+    setCart,
+    total,
+    setTotal,
+    coupon,
+    setCoupon,
+    discount,
+    setDiscount,
+    sendAmount,
+  };
   return (
     <CartContext.Provider value={authInfo}>{children}</CartContext.Provider>
   );

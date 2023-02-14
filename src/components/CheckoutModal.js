@@ -20,7 +20,7 @@ const customStyles = {
 ReactModal.setAppElement("#root");
 
 const CheckoutModal = ({ modalIsOpen, setIsOpen, sendDataObj }) => {
-  const { setTotal, setCart } = useContext(CartContext);
+  const { setTotal, setCart, sendAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   let subtitle;
@@ -53,6 +53,7 @@ const CheckoutModal = ({ modalIsOpen, setIsOpen, sendDataObj }) => {
       console.log(err);
     } finally {
       clearCartData();
+      sendAmount(0);
     }
   };
 
