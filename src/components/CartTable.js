@@ -59,8 +59,7 @@ const CartTable = ({ cart }) => {
                 {cartPro.name}
               </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white ">
-                <div className="flex items-center gap-6">
-                  <button className="px-1 rounded-sm">+</button>1<button className="px-1 rounded-sm">-</button>
+                <div className="flex items-center gap-6">1
                 </div>
               </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
